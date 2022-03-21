@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
-import django_heroku
+import djano_heroku
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-l(h7b=6*0^ahjr)she_s^#6h$#to8uf%hi@zk0*t1k@%i&&pt$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ddah.herokuapp.com']
 
 
 # Application definition
@@ -77,10 +77,20 @@ WSGI_APPLICATION = 'myapi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.posgresql_psycopg2',
+        'NAME': 'd7suop30p2qjbo',
+        'USER': 'fvzlwhsryhdyfc',
+        'PASSWORD': '4adcc209178473c1429c1118910a57930041a020b877876c248d3411d5b8843c',
+        'HOST': 'ec2-176-34-105-15.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432'
     }
 }
 import dj_database_url
@@ -122,10 +132,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = 'static/'
+django_heroku.settings(locals())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-django_heroku.settings(locals())
